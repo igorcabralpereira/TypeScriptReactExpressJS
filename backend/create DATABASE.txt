@@ -1,0 +1,25 @@
+CREATE DATABASE IF NOT EXISTS todolist;
+
+USE todolist;
+
+CREATE TABLE auth_user (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    username VARCHAR(150) NOT NULL,
+    password VARCHAR(128) NOT NULL,
+    UNIQUE (username)
+
+);
+
+CREATE TABLE ItemApp_items (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    date VARCHAR(45) NOT NULL,
+    category VARCHAR(500) NOT NULL,
+    value VARCHAR(100) NOT NULL,
+    title VARCHAR(500) NOT NULL,
+    user int,
+    FOREIGN KEY (user) REFERENCES auth_user(id)
+    ON DELETE CASCADE
+
+);
+
+

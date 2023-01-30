@@ -1,0 +1,66 @@
+// OBSERVAÇÃO: até o quinto passo é somente para quem deseja rodar o docker no Windows, onde será habilitado a VM
+e a habilitação do Subsistema do Windows para Linux(WSL2). Com isto, é obrigatório ter instalado o Docker Desktop no windows,
+pois é onde será executado a imagem do mysql e o container.
+
+
+# 1-  instalar o docker no computador (Windows):
+
+    - https://docs.docker.com/desktop/install/windows-install/
+
+# 2- Ativar o recurso de máquina virtual:
+
+	Antes de instalar o WSL 2, você deve habilitar o recurso opcional Virtual Machine Platform . Sua máquina exigirá recursos de virtualização para usar esse recurso.
+
+	Abra o PowerShell / cmd como administrador e execute:
+
+    - dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+# 3- Habilitar o Subsistema do Windows para Linux(WSL2)
+Você deve primeiro habilitar o recurso opcional "Windows Subsystem for Linux" antes de instalar qualquer distribuição do Linux no Windows.
+
+	Abra o PowerShell como administrador e digite este comando:
+
+	- dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux
+
+# 4- Defina o WSL 2 como sua versão padrão:
+
+	Abra o PowerShell / cmd e execute este comando para definir o WSL 2 como a versão padrão ao instalar uma nova distribuição do Linux:
+
+	- wsl --set-default-version 2
+
+# 5- Se ocorrer este error: Error: 0x800701bc WSL 2 requer uma atualização para seu componente kernel.
+
+	1. entre neste link > https://learn.microsoft.com/pt-br/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package
+
+	2. faça o download deste link > Pacote de atualização do kernel do Linux do WSL2 para computadores x64
+
+	3. execute o wsl_update_x64.msi em downloads do seu pc
+
+
+# 6 - Utilizar imagem do mysql(Docker oficial Image: https://hub.docker.com/_/mysql)
+
+	1. instalar a extensão do DOCKER no VSCode para controle das imagens e containers.
+
+	2. executar docker no terminal (Lembre-se de iniciar o Docker Desktop antes de executar o comando)
+
+        // não precisa instalar os 2, apenas escolha a versão especifica ou a versão atual.
+		docker run --name NOMEDOSEUCONTAINER -e MYSQL_ROOT_PASSWORD=SUASENHA -p 3306:3306 -d mysql:5.7 (baixar container pela versão especifica)
+		docker run --name NOMEDOSEUCONTAINER -e MYSQL_ROOT_PASSWORD=SUASENHA -p 3306:3306 -d mysql (baixar container pela versão atual)
+
+
+	3. pode dar start pelo docker desktop diretamente ou executar: docker start SEUCONTAINERID.
+	3. pode dar stop pelo docker desktop diretamente ou executar: docker stop SEUCONTAINERID.
+
+	4. tente conectar-se ao servidor.. no VSCode tem uma extensão chamada "DATABASE CLIENT" onde deverá inserir as credenciais
+	   criadas em HOST(localhost ou 127.0.0.1), PORT(3306), USERNAME(SEUUSERNAME) e PASSWORD(SUASENHA).
+	   lembrando que vc precisará colocar essas credenciais no arquivo .env da pasta backend
+
+	5. se estiver tudo ok, você estará conectado no servidor na porta 127.0.0.1@3306
+	6. se conseguiu conectar-se, tem um arquivo na raiz do projeto chamado "create DATABASE" que pode ajudar a criar seu proprio banco de dados.
+
+
+
+
+
+
+
