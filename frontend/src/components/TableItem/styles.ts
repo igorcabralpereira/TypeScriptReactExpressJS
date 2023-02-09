@@ -6,7 +6,7 @@ export const TableLine = styled.tr`
     padding: .35em;
     display: flex;
 
-    @media (max-width: 400px) {
+    @media (max-width: 420px) {
 
         flex-wrap: wrap;
 
